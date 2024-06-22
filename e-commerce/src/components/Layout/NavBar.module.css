@@ -1,0 +1,45 @@
+
+.navbar {
+    background-color: #007bff; 
+}
+
+.navbarBrand {
+    color: white; 
+    font-size: 18px; 
+    font-weight: bold; 
+}
+
+.navbarBrand:hover {
+    color: lightgray; 
+    text-decoration: none; 
+}
+
+.navbarTogglerIcon {
+    color: white; 
+}
+
+.navbarCollapse {
+    justify-content: flex-end; 
+}
+
+.navItem {
+    margin-left: 15px; 
+}
+
+.navLink {
+    color: white; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+}
+
+.navLink:hover {
+    color: lightgray; 
+    text-decoration: none; 
+}
+
+
+
+
+
+
+
