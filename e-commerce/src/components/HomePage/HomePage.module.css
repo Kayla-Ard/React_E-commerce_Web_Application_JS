@@ -1,8 +1,11 @@
 
 .homepage {
+    height: 100%;
     padding: 20px;
-    background-color: bisque;
+    background-color: var(--space);
+    color: var(--cream);
 }
+
 
 
 

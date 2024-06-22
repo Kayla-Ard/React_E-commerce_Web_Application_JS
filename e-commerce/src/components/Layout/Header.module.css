@@ -1,9 +1,12 @@
 .header {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     padding: 15px 0;
-    color: red;
+    color: var(--cream);
+    background-color: var(--space);
 }
 
 .storeName {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 2rem;
     font-weight: bold;
     text-align: center;

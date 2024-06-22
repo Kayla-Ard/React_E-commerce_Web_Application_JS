@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <header className={styles.header}>
             <div className="container">
-                <h1 className={styles.storeName}>Name of Store will go here</h1>
+                <h1 className={styles.storeName}></h1>
             </div>
         </header>
     );

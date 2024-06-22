@@ -1,38 +1,57 @@
-
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './NavBar.module.css';
+import FurBabyLogo from './FurBabyLogo.png';
+import { FaSearch, FaMapMarkerAlt, FaShoppingCart } from 'react-icons/fa';
+import { useCart } from './Cart';
 
 const NavBar = () => {
+    const { cartCount } = useCart();
+    const [isOpen, setIsOpen] = useState(false);
+    const [isAddressModalOpen, setAddressModalOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    };
+
+    const toggleAddressModal = () => {
+        setAddressModalOpen(!isAddressModalOpen);
+    };
+
     return (
-        <nav className={`navbar navbar-expand-lg ${styles.navbar}`}>
-            <div className="container">
-                <Link className={`navbarBrand ${styles.navbarBrand}`} to="/">
-                    Filler for now
-                </Link>
-                <button
-                    className="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                >
-                    <span className={`navbarTogglerIcon ${styles.navbarTogglerIcon}`}></span>
-                </button>
-                <div className={`collapse navbarCollapse ${styles.navbarCollapse}`} id="navbarSupportedContent">
-                    <ul className="navbarNav ml-auto">
-                        <li className="navItem">
-                            <Link className={`navLink ${styles.navLink}`} to="/">
-                                Home
-                            </Link>
-                        </li>
-                        <li className="navItem">
-                            <Link className={`navLink ${styles.navLink}`} to="/products">
-                                Products
-                            </Link>
-                        </li>
-                    </ul>
+        <nav className={styles.navbar}>
+            <div className={styles.logoContainer}>
+                <img src={FurBabyLogo} alt="Fur Baby Logo" className={styles.logo} />
+            </div>
+            <div className={styles.searchBox}>
+                <input type="text" placeholder="Search..." className={styles.searchInput} />
+                <button className={styles.searchButton}><FaSearch /></button>
+            </div>
+            <div className={styles.iconsContainer}>
+                <div className={styles.addressIcon} onClick={toggleAddressModal}>
+                    <FaMapMarkerAlt />
+        
+                    {isAddressModalOpen && (
+                        <div className={styles.modal}>
+                            <p>1445 Aspen Way Logan, Utah 84345</p>
+                        </div>
+                    )}
+                </div>
+                <div className={styles.cartIcon}>
+                    <FaShoppingCart />
+                    <span className={styles.cartCount}>{cartCount}</span>
+                </div>
+            </div>
+            <div className={styles.menuToggle}>
+                
+                <div className={styles.toggle} onClick={toggleMenu}>
+                    ☰
+                </div>
+                <div className={`${styles.menu} ${isOpen ? styles.open : ''}`}>
+                    <Link to="/" className={styles.navItem} onClick={() => setIsOpen(false)}>Home</Link>
+                    <Link to="/products" className={styles.navItem} onClick={() => setIsOpen(false)}>Products</Link>
+                    <Link to="/customers" className={styles.navItem} onClick={() => setIsOpen(false)}>Customers</Link>
+                    <Link to="/orders" className={styles.navItem} onClick={() => setIsOpen(false)}>Orders</Link>
                 </div>
             </div>
         </nav>
@@ -40,6 +59,10 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+
+
+
 
 
 
