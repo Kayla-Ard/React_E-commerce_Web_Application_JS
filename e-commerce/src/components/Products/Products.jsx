@@ -1,21 +1,18 @@
 import { useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
 import styles from './Products.module.css';
+import { fetchProducts } from '../../../API/API';
 
 const DisplayProducts = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetchProducts();
+        fetchAllProducts();
     }, []);
 
-    const fetchProducts = async () => {
+    const fetchAllProducts = async () => {
         try {
-            const response = await fetch('http://localhost:5001/products');
-            if (!response.ok) {
-                throw new Error('Failed to fetch products');
-            }
-            const data = await response.json();
+            const data = await fetchProducts();
             setProducts(data);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -43,6 +40,7 @@ const DisplayProducts = () => {
 };
 
 export default DisplayProducts;
+
 
 
 

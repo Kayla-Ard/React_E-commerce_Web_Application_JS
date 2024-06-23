@@ -1,3 +1,4 @@
+import styles from './Orders.module.css'
 
 const Orders = () => {
     return (

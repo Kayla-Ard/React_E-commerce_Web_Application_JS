@@ -7,7 +7,7 @@ import Products from './components/Products/Products';
 import Customers from './components/Customers/Customers';
 import Orders from './components/Orders/Orders';
 import Footer from './components/Layout/Footer';
-import './App.jsx';
+import './index.css';
 import { CartProvider } from './components/Layout/Cart.jsx';
 
 const App = () => {

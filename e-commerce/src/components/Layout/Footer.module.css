@@ -1,13 +1,14 @@
 .footer {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color:var(--space);
-    padding: 15px 0;
     text-align: center;
     position: fixed;
     bottom: 0;
     width: 100%;
     color: var(--cream);
     font-size: 18px;
+    z-index: 10;
+    margin-top: 50px;
 }
 
 .socialIcons {

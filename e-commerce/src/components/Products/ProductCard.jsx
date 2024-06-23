@@ -1,4 +1,3 @@
-
 import styles from './ProductCard.module.css';
 
 const ProductCard = ({ product, onClick }) => {
@@ -12,4 +11,5 @@ const ProductCard = ({ product, onClick }) => {
 };
 
 export default ProductCard;
+
 

@@ -3,19 +3,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 300px;
+    justify-content: space-between;
+    max-width: 200px;
+    height: auto;
     padding: 20px;
     margin: 10px;
-    border: 2px solid grey;
+    border: 3px solid var(--violet);
     border-radius: 8px;
-    background-color: yellow;
+    background-color: var(--cream);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .productImage {
     width: 100%;
-    height: 200px;
+    height: auto;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -27,17 +28,18 @@
 
 .productTitle {
     font-size: 22px;
+    color: var(--space);
     margin-bottom: 5px;
 }
 
 .productDescription {
     font-size: 16px;
-    color: black;
+    color: var(--space);
     margin-bottom: 5px;
 }
 
 .productPrice {
     font-size: 22px;
     font-weight: bold;
-    color: #2e8b57;
+    color: var(--water)
 }
