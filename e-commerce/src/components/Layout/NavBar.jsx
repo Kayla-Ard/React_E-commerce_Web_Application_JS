@@ -43,7 +43,6 @@ const NavBar = () => {
                 </div>
             </div>
             <div className={styles.menuToggle}>
-                
                 <div className={styles.toggle} onClick={toggleMenu}>
                     ☰
                 </div>
@@ -59,6 +58,10 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+
+
+
 
 
 

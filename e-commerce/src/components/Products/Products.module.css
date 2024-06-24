@@ -22,4 +22,29 @@ h2 {
     }
 }
 
+.searchContainer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 20px; 
+}
+
+.searchInput {
+    padding: 5px 30px 5px 10px;
+    border: 2px solid var(--water);
+    border-radius: 20px;
+    width: 200px;
+    max-width: 300px;
+    background-color: var(--violet);
+    color: var(--water);
+}
+
+.searchInput::placeholder {
+    color: var(--water);
+}
+
+.searchInput:focus {
+    outline: 2px solid var(--water);
+}
 

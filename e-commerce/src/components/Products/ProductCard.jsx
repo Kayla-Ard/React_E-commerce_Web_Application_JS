@@ -1,5 +1,4 @@
 import styles from './ProductCard.module.css';
-
 import catFoodImage from '../ProductImages/catFood.png';
 import dogFoodImage from '../ProductImages/dogFood.png';
 import dogToyImage from '../ProductImages/dogToy.png';
