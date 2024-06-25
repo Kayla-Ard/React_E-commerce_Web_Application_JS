@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import styles from './Customers.module.css';
 import AddCustomer from './AddCustomer';
 import CustomerAccounts from './CustomerAccounts';
-import { saveCustomer } from '../../../API/API';  // Ensure you have a function to save customer
+import { saveCustomer } from '../../../API/API';  
 
 const Customers = () => {
     const [customers, setCustomers] = useState([]);

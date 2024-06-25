@@ -1,4 +1,4 @@
-// CustomerAccounts.jsx
+
 
 import React, { useEffect, useState } from 'react';
 import { fetchCustomerAccounts, saveCustomerAccount, deleteCustomerAccount } from '../../../API/API';
@@ -12,7 +12,7 @@ const CustomerAccounts = () => {
         const loadCustomerAccounts = async () => {
             try {
                 const accounts = await fetchCustomerAccounts();
-                console.log('Fetched customer accounts:', accounts); // Log fetched accounts
+                console.log('Fetched customer accounts:', accounts); 
                 setCustomerAccounts(accounts);
             } catch (error) {
                 console.error('Error loading customer accounts:', error);
@@ -30,7 +30,7 @@ const CustomerAccounts = () => {
         e.preventDefault();
         try {
             const savedAccount = await saveCustomerAccount(newCustomerAccount);
-            console.log('Saved new account:', savedAccount); // Log saved account
+            console.log('Saved new account:', savedAccount); 
             setNewCustomerAccount({ username: '', password: '', customer_id: '' });
             const accounts = await fetchCustomerAccounts();
             setCustomerAccounts(accounts);
@@ -42,7 +42,7 @@ const CustomerAccounts = () => {
     const handleDelete = async (accountId) => {
         try {
             await deleteCustomerAccount(accountId);
-            console.log('Deleted account ID:', accountId); // Log deleted account ID
+            console.log('Deleted account ID:', accountId); 
             const accounts = await fetchCustomerAccounts();
             setCustomerAccounts(accounts);
         } catch (error) {

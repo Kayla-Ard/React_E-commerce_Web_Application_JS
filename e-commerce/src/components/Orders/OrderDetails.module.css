@@ -1,28 +1,60 @@
-
 .orderDetailsContainer {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: grey;
-    border: 1px solid white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    padding-bottom: 20px;
+    background-color: var(--cream);
+    color: var(--space);
+    border: 1px solid var(--space);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .orderItem {
-    margin-bottom: 15px;
     padding: 10px;
-    background-color: white;
-    border: 1px solid yellow;
-    border-radius: 3px;
+    margin-bottom: 10px;
+    background-color: var(--violet);
+    border: 1px solid var(--space);
+    border-radius: 4px;
+    color: var(--cream);
 }
 
 .orderItemHeader {
     font-weight: bold;
-    margin-bottom: 5px;
 }
 
 .orderItemTotal {
     font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
 }
+
+.returnButtonContainer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.returnButton {
+    background-color: var(--water);
+    color: var(--space);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
+}
+
+.returnButton:hover {
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water);
+}
+
+
+
 

@@ -1,11 +1,14 @@
 .formContainer {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    padding: 10px;
+    padding-bottom: 20px;
+    background-color: var(--cream); 
+    color: var(--space); 
+    border: 1px solid var(--space);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative; 
+    z-index: 1; 
 }
 
 .formGroup {
@@ -23,21 +26,42 @@
 .formGroup input[type="phone"] {
     width: calc(100% - 16px);
     padding: 8px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
+    font-size: 14px;
     border-radius: 4px;
+    background-color: var(--violet);
+    border: 2px solid var(--space);
+    color: var(--water);
+}
+
+.formGroup input[type="text"]:focus,
+.formGroup input[type="email"]:focus,
+.formGroup input[type="phone"]:focus {
+    outline: none;
+    border: 3px solid var(--space);  
+}
+
+.formGroup input[type="text"]::placeholder,
+.formGroup input[type="email"]::placeholder,
+.formGroup input[type="phone"]::placeholder {
+    color: var(--water);
 }
 
 .submitButton {
     background-color: var(--water);
     color: var(--space);
     border: none;
-    padding: 10px 20px;
+    padding: 10px 10px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 16px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
 }
 
 .submitButton:hover {
-    background-color: var(--space);
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water);
 }

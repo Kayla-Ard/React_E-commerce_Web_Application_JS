@@ -1,5 +1,5 @@
 .customerAccountsContainer {
-    padding: 20px;
+    padding: 10px;
     background-color: var(--cream); 
     color: var(--space); 
     border: 1px solid var(--space);
@@ -11,56 +11,80 @@
 }
 
 .customerAccountsContainer h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
+    font-size: 25px;
+    margin-bottom: 20px;
 }
 
 .customerAccountsForm {
-    margin-bottom: 20px;
+    margin-bottom: 70px;
+    width: calc(100% - 16px);
 }
 
 .customerAccountsList {
     list-style: none;
-    padding: 0;
 }
 
 .customerAccountsListItem {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
 }
 
 .customerAccountsListItem button {
-    background-color: var(--water); 
-    color: var(--cream); 
+    background-color: var(--water);
+    color: var(--space);
     border: none;
-    padding: 8px 16px;
+    padding: 10px 10px;
     border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
+    margin-left: 10px;
 }
 
-.customerAccountsListItem button:hover {
+.customerAccountsListItem button:hover, .customerAccountsButton:hover {
     background-color: var(--violet);
     color: var(--water);
     font-weight: bold;
+    border: 1px solid var(--water);
 }
 
+.customerAccountsButton {
+    background-color: var(--water);
+    color: var(--space);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
+}
 
 .customerAccountsContainer input[type="text"],
 .customerAccountsContainer input[type="password"] {
     padding: 10px;
-    border: 1px solid var(--water);
+    border: 2px solid var(--space);
     border-radius: 5px;
     background-color: var(--violet); 
     color: var(--water); 
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
+    font-size: 14px;
 }
 
 .customerAccountsContainer input[type="text"]:focus,
 .customerAccountsContainer input[type="password"]:focus {
     outline: none;
-    border-color: var(--space); 
+    border: 3px solid var(--space); 
 }
 
+.customerAccountsContainer input[type="text"]::placeholder,
+.customerAccountsContainer input[type="password"]::placeholder {
+    color: var(--water);
+}
 
 
 @media (max-width: 768px) {

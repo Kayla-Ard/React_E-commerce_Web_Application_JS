@@ -1,4 +1,65 @@
-h1 {
-    color: var(--cream);
-    padding: 10px;
+.ordersContainer {
+    padding: 20px;
+    padding-bottom: 20px;
+    background-color: var(--cream);
+    border: 1px solid var(--space);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    position: relative;
+    z-index: 1;
 }
+
+.ordersList {
+    list-style: none;
+    padding: 0;
+}
+
+.orderItem {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--violet);
+    border: 1px solid var(--space);
+    border-radius: 4px;
+    color: var(--water);
+    font-size: 16px;
+}
+
+.orderItem:hover {
+    color:var(--water);
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.orderLink {
+    color: var(--water);
+    text-decoration: none;
+}
+
+.orderLink:hover {
+    font-weight: bolder;
+    color: var(--space);
+    font-weight: bolder;
+}
+
+.createOrderButton {
+    background-color: var(--water);
+    color: var(--space);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
+}
+
+.createOrderButton:hover {
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water);
+}
+
+

@@ -83,10 +83,10 @@ const OrderForm = () => {
     };
 
     return (
-        <div className={styles.formContainer}>
+        <div className={styles.formContainer}> 
             <h2>Create Order</h2>
             <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="customerName" className={styles.formGroup}>
+                <Form.Group controlId="customerName" className={styles.formGroup}> 
                     <Form.Label>Customer Name</Form.Label>
                     <Form.Control
                         type="text"
@@ -97,7 +97,7 @@ const OrderForm = () => {
                     />
                 </Form.Group>
 
-                <Form.Group controlId="customerEmail" className={styles.formGroup}>
+                <Form.Group controlId="customerEmail" className={styles.formGroup}> 
                     <Form.Label>Customer Email</Form.Label>
                     <Form.Control
                         type="email"
@@ -108,7 +108,7 @@ const OrderForm = () => {
                     />
                 </Form.Group>
 
-                <Form.Group className={styles.formGroup}>
+                <Form.Group className={styles.formGroup}> 
                     <Form.Label>Select Products</Form.Label>
                     {products.map((product) => (
                         <Form.Check
@@ -117,11 +117,12 @@ const OrderForm = () => {
                             id={`product-${product.product_id}`}
                             label={`${product.name} - $${product.price}`}
                             onChange={(e) => handleProductChange(e, product.product_id)}
+                            className="form-check-input"
                         />
                     ))}
                 </Form.Group>
 
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className={styles.submitButton}> 
                     Submit Order
                 </Button>
             </Form>
@@ -130,4 +131,5 @@ const OrderForm = () => {
 };
 
 export default OrderForm;
+
 
