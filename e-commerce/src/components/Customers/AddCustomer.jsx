@@ -1,61 +1,63 @@
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import styles from './AddCustomer.module.css'; 
+import React, { useState } from 'react';
+import './AddCustomer.module.css'; 
 
-const AddCustomer = () => {
-    const history = useHistory();
-    const [customerData, setCustomerData] = useState({
-        name: '',
-        email: '',
-        phone: ''
-    });
+const AddCustomer = ({ onSave }) => {
+    const [customer, setCustomer] = useState({ name: '', email: '', phone: '' });
 
-    const handleChange = (e) => {
+    const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setCustomerData({ ...customerData, [name]: value });
+        setCustomer({ ...customer, [name]: value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        try {
-        const response = await fetch('http://localhost:5001/customers', {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(customerData)
-        });
-        if (!response.ok) {
-            throw new Error('Failed to add customer');
-        }
-        alert('Customer added successfully');
-        history.push('/');
-        } catch (error) {
-        console.error('Error adding customer:', error);
-        }
+        onSave(customer);
+        setCustomer({ name: '', email: '', phone: '' });
     };
 
     return (
-        <div className={styles.formContainer}>
-        <h2>Add Customer</h2>
-        <form onSubmit={handleSubmit}>
-            <div className={styles.formGroup}>
-            <label>Name</label>
-            <input type="text" name="name" value={customerData.name} onChange={handleChange} placeholder="Name" required />
-            </div>
-            <div className={styles.formGroup}>
-            <label>Email</label>
-            <input type="email" name="email" value={customerData.email} onChange={handleChange} placeholder="Email" required />
-            </div>
-            <div className={styles.formGroup}>
-            <label>Phone</label>
-            <input type="text" name="phone" value={customerData.phone} onChange={handleChange} placeholder="Phone" required />
-            </div>
-            <button type="submit" className={styles.submitButton}>Add Customer</button>
-        </form>
+        <div className="formContainer">
+            <form onSubmit={handleSubmit}>
+                <div className="formGroup">
+                    <label htmlFor="name">Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        value={customer.name}
+                        onChange={handleInputChange}
+                        placeholder="Enter Name"
+                        required
+                    />
+                </div>
+                <div className="formGroup">
+                    <label htmlFor="email">Email</label>
+                    <input
+                        type="email"
+                        name="email"
+                        value={customer.email}
+                        onChange={handleInputChange}
+                        placeholder="Enter Email"
+                        required
+                    />
+                </div>
+                <div className="formGroup">
+                    <label htmlFor="phone">Phone</label>
+                    <input
+                        type="text"
+                        name="phone"
+                        value={customer.phone}
+                        onChange={handleInputChange}
+                        placeholder="Enter Phone"
+                        required
+                    />
+                </div>
+                <button className="submitButton" type="submit">Save Customer</button>
+            </form>
         </div>
     );
 };
 
 export default AddCustomer;
+
+
 

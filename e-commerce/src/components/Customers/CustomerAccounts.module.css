@@ -1,0 +1,82 @@
+.customerAccountsContainer {
+    padding: 20px;
+    background-color: var(--cream); 
+    color: var(--space); 
+    border: 1px solid var(--space);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    position: relative; 
+    z-index: 1; 
+}
+
+.customerAccountsContainer h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.customerAccountsForm {
+    margin-bottom: 20px;
+}
+
+.customerAccountsList {
+    list-style: none;
+    padding: 0;
+}
+
+.customerAccountsListItem {
+    margin-bottom: 10px;
+}
+
+.customerAccountsListItem button {
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.customerAccountsListItem button:hover {
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+}
+
+
+.customerAccountsContainer input[type="text"],
+.customerAccountsContainer input[type="password"] {
+    padding: 10px;
+    border: 1px solid var(--water);
+    border-radius: 5px;
+    background-color: var(--violet); 
+    color: var(--water); 
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.customerAccountsContainer input[type="text"]:focus,
+.customerAccountsContainer input[type="password"]:focus {
+    outline: none;
+    border-color: var(--space); 
+}
+
+
+
+@media (max-width: 768px) {
+    .customerAccountsContainer {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .customerAccountsContainer {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .customerAccountsContainer {
+        padding: 8px;
+    }
+}

@@ -6,6 +6,7 @@ import HomePage from './components/HomePage/HomePage';
 import Products from './components/Products/Products';
 import Customers from './components/Customers/Customers';
 import Orders from './components/Orders/Orders';
+import CustomerAccounts from './components/Customers/CustomerAccounts'; 
 import Footer from './components/Layout/Footer';
 import './index.css';
 import { CartProvider } from './components/Layout/Cart';
@@ -22,6 +23,7 @@ const App = () => {
                         <Route path="/products" exact component={Products} />
                         <Route path="/customers" exact component={Customers} />
                         <Route path="/orders" exact component={Orders} />
+                        <Route path="/customer-accounts" exact component={CustomerAccounts} /> {/* Add route for CustomerAccounts */}
                     </Switch>
                     <Footer />
                 </div>
@@ -31,6 +33,7 @@ const App = () => {
 };
 
 export default App;
+
 
 
 

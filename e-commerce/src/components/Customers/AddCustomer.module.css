@@ -1,4 +1,3 @@
-
 .formContainer {
     max-width: 500px;
     margin: 0 auto;
@@ -10,37 +9,35 @@
 }
 
 .formGroup {
-margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .formGroup label {
-display: block;
-font-weight: bold;
-margin-bottom: 8px;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
 .formGroup input[type="text"],
 .formGroup input[type="email"],
-.formGroup select {
-width: calc(100% - 16px);
-padding: 8px;
-font-size: 1rem;
-border: 1px solid #ccc;
-border-radius: 4px;
+.formGroup input[type="phone"] {
+    width: calc(100% - 16px);
+    padding: 8px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
 .submitButton {
-background-color: #007bff;
-color: white;
-border: none;
-padding: 10px 20px;
-border-radius: 4px;
-cursor: pointer;
-font-size: 1rem;
+    background-color: var(--water);
+    color: var(--space);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
 }
 
 .submitButton:hover {
-background-color: #0056b3;
+    background-color: var(--space);
 }
-
-
