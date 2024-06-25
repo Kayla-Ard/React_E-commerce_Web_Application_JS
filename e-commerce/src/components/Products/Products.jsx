@@ -3,6 +3,7 @@ import ProductCard from './ProductCard';
 import styles from './Products.module.css';
 import { fetchProducts } from '../../../API/API';
 import { useLocation } from 'react-router-dom';
+import { useCart } from '../Layout/Cart';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -11,6 +12,7 @@ const Products = () => {
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const petType = queryParams.get('search');
+    const { addToCart } = useCart(); 
 
     useEffect(() => {
         fetchAllProducts();
@@ -20,7 +22,7 @@ const Products = () => {
         try {
             const data = await fetchProducts();
             setProducts(data);
-            filterProducts(petType); 
+            filterProducts(petType);
             setFilteredProducts(data);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -35,14 +37,17 @@ const Products = () => {
 
     const filterProducts = (term) => {
         if (!term) {
-            setFilteredProducts(products); 
+            setFilteredProducts(products);
             return;
         }
-
         const filtered = products.filter((product) =>
             product.name.toLowerCase().includes(term.toLowerCase())
         );
         setFilteredProducts(filtered);
+    };
+
+    const handleAddToCart = (product) => {
+        addToCart(product); 
     };
 
     return (
@@ -62,7 +67,7 @@ const Products = () => {
                     <ProductCard
                         key={product.product_id}
                         product={product}
-                        onClick={() => console.log(`Show price for product with ID: ${product.product_id}`)}
+                        onAddToCart={handleAddToCart} 
                     />
                 ))}
             </div>
@@ -71,7 +76,6 @@ const Products = () => {
 };
 
 export default Products;
-
 
 
 

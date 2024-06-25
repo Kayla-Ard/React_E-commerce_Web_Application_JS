@@ -1,4 +1,5 @@
 import styles from './ProductCard.module.css';
+import React, { useState } from 'react';
 import catFoodImage from '../ProductImages/catFood.png';
 import dogFoodImage from '../ProductImages/dogFood.png';
 import dogToyImage from '../ProductImages/dogToy.png';
@@ -25,7 +26,8 @@ import ballImage from '../ProductImages/Ball.jpg';
 import catnipImage from '../ProductImages/catnip.jpg';
 import bagsImage from '../ProductImages/bags.png';
 
-const ProductCard = ({ product, onClick }) => {
+const ProductCard = ({ product, onAddToCart }) => {
+    const [quantity, setQuantity] = useState(0);
 
     const getImage = (productName) => {
         switch (productName) {
@@ -88,8 +90,29 @@ const ProductCard = ({ product, onClick }) => {
 
     const productImage = getImage(product.name);
 
+    const decreaseQuantity = () => {
+        if (quantity > 0) {
+            setQuantity(quantity - 1);
+        }
+    };
+
+    const increaseQuantity = () => {
+        setQuantity(quantity + 1);
+    };
+
+    const handleAddToCartClick = () => {
+        const cartItem = {
+            ...product,
+            quantity: Number(quantity) 
+        };
+        if (cartItem.quantity > 0) {
+            onAddToCart(cartItem); 
+            setQuantity(0); 
+        }
+    };
+
     return (
-        <div className={styles.productCard} onClick={onClick}>
+        <div className={styles.productCard}>
             {productImage ? (
                 <img src={productImage} alt={product.name} className={styles.productImage} />
             ) : (
@@ -97,6 +120,12 @@ const ProductCard = ({ product, onClick }) => {
             )}
             <h3 className={styles.productTitle}>{product.name}</h3>
             <p className={styles.productPrice}>${product.price}</p>
+            <div className={styles.quantitySelector}>
+                <button onClick={decreaseQuantity} className={styles.quantityButton}>-</button>
+                <span className={styles.quantity}>{quantity}</span>
+                <button onClick={increaseQuantity} className={styles.quantityButton}>+</button>
+            </div>
+            <button onClick={handleAddToCartClick} className={styles.addToCartButton}>Add to Cart</button>
         </div>
     );
 };

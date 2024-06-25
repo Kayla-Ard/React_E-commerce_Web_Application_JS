@@ -43,3 +43,50 @@
     font-weight: bold;
     color: var(--water)
 }
+
+.addToCartButton {
+    background-color: var(--water);
+    color: var(--space);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
+}
+
+.addToCartButton:hover {
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water);
+}
+
+.quantitySelector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.quantityButton {
+    padding: 4px;
+    background-color: var(--violet);
+    color: var(--cream);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.quantityButton:hover {
+    background-color: var(--space);
+}
+
+.quantity {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--space);
+    padding: 0 10px;
+}
