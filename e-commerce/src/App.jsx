@@ -12,6 +12,7 @@ import './index.css';
 import { CartProvider } from './components/Layout/Cart';
 import OrderForm from './components/Orders/OrderForm';
 import OrderDetails from './components/Orders/OrderDetails';
+import CartModal from './components/Layout/CartModal';
 
 const App = () => {
     return (

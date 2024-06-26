@@ -4,11 +4,13 @@ import styles from './Products.module.css';
 import { fetchProducts } from '../../../API/API';
 import { useLocation } from 'react-router-dom';
 import { useCart } from '../Layout/Cart';
+import CartModal from '../Layout/CartModal';
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isCartModalOpen, setIsCartModalOpen] = useState(false); // State to toggle modal visibility
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const petType = queryParams.get('search');
@@ -50,6 +52,10 @@ const Products = () => {
         addToCart(product); 
     };
 
+    const toggleCartModal = () => {
+        setIsCartModalOpen(!isCartModalOpen);
+    };
+
     return (
         <div className={styles.productListContainer}>
             <h2>Products</h2>
@@ -71,6 +77,8 @@ const Products = () => {
                     />
                 ))}
             </div>
+            <button onClick={toggleCartModal} className={styles.cartButton}>View Cart</button>
+            {isCartModalOpen && <CartModal onClose={toggleCartModal} />} {/* Conditionally render CartModal */}
         </div>
     );
 };

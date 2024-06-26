@@ -8,9 +8,14 @@
     padding-bottom: 150px;
 }
 
+.homepage h2 {
+font-size: 35px;
+}
+
 .banner {
     padding: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 150px;
+    margin-top: 50px;
     font-weight: bold;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -21,7 +26,8 @@
 
 .carousel {
     width: 80%;
-    margin: 0 auto 40px auto;;
+    margin: 0 auto 150px auto;
+    z-index: 0;
 }
 
 .carouselItem {
@@ -32,22 +38,6 @@
     width: 100%;
     height: auto;
 }
-
-/* .shopNow {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: var(--water);
-    color: var(--cream);
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.shopNow:hover {
-    background-color: var(--violet);
-    transform: scale(1.05);
-} */
 
 .shopByPetType {
     margin-top: 40px;
