@@ -5,12 +5,14 @@ import FurBabyLogo from './FurBabyLogo.png';
 import { FaSearch, FaMapMarkerAlt, FaShoppingCart } from 'react-icons/fa';
 import { useCart } from './Cart';
 import CartModal from './CartModal';
+import AdminModal from '../Products/AdminModal';
 
 const NavBar = () => {
     const { cartCount } = useCart();
     const [isOpen, setIsOpen] = useState(false);
     const [isAddressModalOpen, setAddressModalOpen] = useState(false);
     const [isCartModalOpen, setCartModalOpen] = useState(false);
+    const [isAdminModalOpen, setAdminModalOpen] = useState(false);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -22,6 +24,15 @@ const NavBar = () => {
 
     const toggleCartModal = () => {
         setCartModalOpen(!isCartModalOpen);
+    };
+
+    const openAdminModal = (e) => {
+        e.preventDefault();
+        setAdminModalOpen(true);
+    };
+
+    const closeAdminModal = () => {
+        setAdminModalOpen(false);
     };
 
     return (
@@ -57,13 +68,17 @@ const NavBar = () => {
                     <Link to="/products" className={styles.navItem} onClick={() => setIsOpen(false)}>Products</Link>
                     <Link to="/customers" className={styles.navItem} onClick={() => setIsOpen(false)}>Customers</Link>
                     <Link to="/orders" className={styles.navItem} onClick={() => setIsOpen(false)}>Orders</Link>
+                    <Link to="#" className={styles.navItem} onClick={openAdminModal}>Admin</Link>
                 </div>
             </div>
+            <AdminModal isOpen={isAdminModalOpen} onClose={closeAdminModal} />
         </nav>
     );
 };
 
 export default NavBar;
+
+
 
 
 

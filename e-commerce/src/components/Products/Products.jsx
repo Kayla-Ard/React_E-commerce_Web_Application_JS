@@ -10,7 +10,7 @@ const Products = () => {
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [isCartModalOpen, setIsCartModalOpen] = useState(false); // State to toggle modal visibility
+    const [isCartModalOpen, setIsCartModalOpen] = useState(false); 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const petType = queryParams.get('search');

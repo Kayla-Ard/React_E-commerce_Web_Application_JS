@@ -59,10 +59,24 @@ font-size: 35px;
     transform: scale(1.1); 
 }
 
+.petTypeItem h3 {
+    background-color: var(--water);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 18px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
+    transition: color 0.3s, transform 0.3s;
+}
+
 .petTypeItem:hover h3 {
     background-color: var(--violet);
     color: var(--water);
-    border-radius: 20px;
+    font-weight: bold;
+    border: 1px solid var(--water);
 }
 
 .petTypeImage {
@@ -108,20 +122,23 @@ font-size: 35px;
 }
 
 .productCard a {
-    display: block;
-    margin-top: 10px;
-    text-decoration: none;
-    color: var(--water); 
+    background-color: var(--water);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
     transition: color 0.3s, transform 0.3s;
 }
 
 .productCard a:hover {
-    color: var(--violet); 
-    transform: scale(1.1);
-    font-weight: bolder;
-    background-color: var(--water);
-    border-radius: 20px;
-    padding: 5px;
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water);
 }
 
 

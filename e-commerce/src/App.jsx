@@ -13,6 +13,7 @@ import { CartProvider } from './components/Layout/Cart';
 import OrderForm from './components/Orders/OrderForm';
 import OrderDetails from './components/Orders/OrderDetails';
 import CartModal from './components/Layout/CartModal';
+import AdminProducts from './components/Products/AdminProducts';
 
 const App = () => {
     return (
@@ -29,6 +30,7 @@ const App = () => {
                         <Route path="/customer-accounts" exact component={CustomerAccounts} />
                         <Route path="/order-form" exact component={OrderForm} /> 
                         <Route path="/orders/:orderId" exact component={OrderDetails} />
+                        <Route path="/admin-products" component={AdminProducts} />
                     </Switch>
                     <Footer />
                 </div>
