@@ -48,3 +48,31 @@ h2 {
     outline: 2px solid var(--water);
 }
 
+.viewCart {
+    background-color: var(--water);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: var(--water); 
+    color: var(--cream); 
+    border: 1px solid var(--violet);
+    transition: background-color 0.3s ease;
+}
+
+.viewCart:hover {
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water); 
+}
+
+.viewCartButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+

@@ -77,8 +77,10 @@ const Products = () => {
                     />
                 ))}
             </div>
-            <button onClick={toggleCartModal} className={styles.cartButton}>View Cart</button>
-            {isCartModalOpen && <CartModal onClose={toggleCartModal} />} {/* Conditionally render CartModal */}
+            <div className={styles.viewCartButtonContainer}>
+            <button onClick={toggleCartModal} className={styles.viewCart}>View Cart</button>
+            {isCartModalOpen && <CartModal onClose={toggleCartModal} />}
+            </div>
         </div>
     );
 };
