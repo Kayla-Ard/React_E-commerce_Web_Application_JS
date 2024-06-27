@@ -1,100 +1,118 @@
-
-
-import React, { useEffect, useState } from 'react';
-import { fetchCustomerAccounts, saveCustomerAccount, deleteCustomerAccount } from '../../../API/API';
-import styles from './CustomerAccounts.module.css'; 
+import React, { useState, useEffect } from 'react';
+import { fetchCustomerAccounts, fetchCustomerById, saveCustomerAccount, deleteCustomerAccount, updateCustomerAccount } from '../../../API/API';
+import styles from './CustomerAccounts.module.css';
+import Modal from "../Customers/CustomerModal"; 
 
 const CustomerAccounts = () => {
     const [customerAccounts, setCustomerAccounts] = useState([]);
-    const [newCustomerAccount, setNewCustomerAccount] = useState({ username: '', password: '', customer_id: '' });
+    const [customerId, setCustomerId] = useState('');
+    const [selectedAccount, setSelectedAccount] = useState(null);
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
+    const [modalCustomerDetails, setModalCustomerDetails] = useState(null);
 
     useEffect(() => {
-        const loadCustomerAccounts = async () => {
-            try {
-                const accounts = await fetchCustomerAccounts();
-                console.log('Fetched customer accounts:', accounts); 
-                setCustomerAccounts(accounts);
-            } catch (error) {
-                console.error('Error loading customer accounts:', error);
-            }
-        };
         loadCustomerAccounts();
     }, []);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewCustomerAccount({ ...newCustomerAccount, [name]: value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const loadCustomerAccounts = async () => {
         try {
-            const savedAccount = await saveCustomerAccount(newCustomerAccount);
-            console.log('Saved new account:', savedAccount); 
-            setNewCustomerAccount({ username: '', password: '', customer_id: '' });
             const accounts = await fetchCustomerAccounts();
             setCustomerAccounts(accounts);
         } catch (error) {
-            console.error('Error saving customer account:', error);
+            console.error('Error loading customer accounts:', error);
         }
     };
 
-    const handleDelete = async (accountId) => {
+    const handleInputChange = (e) => {
+        setCustomerId(e.target.value);
+    };
+
+    const handleSearch = async () => {
         try {
-            await deleteCustomerAccount(accountId);
-            console.log('Deleted account ID:', accountId); 
-            const accounts = await fetchCustomerAccounts();
-            setCustomerAccounts(accounts);
+            const account = await fetchCustomerById(customerId);
+            if (account) {
+                setSelectedAccount(account);
+            } else {
+                console.error('No account found with ID:', customerId);
+                setSelectedAccount(null);
+            }
+        } catch (error) {
+            console.error('Error fetching customer account:', error);
+            setSelectedAccount(null);
+        }
+    };
+
+    const handleUpdate = async () => {
+        try {
+            const updatedAccount = { ...selectedAccount };
+            await updateCustomerAccount(updatedAccount.account_id, updatedAccount);
+            loadCustomerAccounts();
+            setSelectedAccount(null);
+
+            setModalMessage('Customer Updated Successfully!');
+            setModalCustomerDetails(updatedAccount);
+            setShowModal(true);
+        } catch (error) {
+            console.error('Error updating customer account:', error);
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            await deleteCustomerAccount(selectedAccount.account_id);
+            loadCustomerAccounts();
+            setSelectedAccount(null);
+
+            setModalMessage('Customer Account closed & customer deleted successfully!');
+            setModalCustomerDetails(selectedAccount);
+            setShowModal(true);
         } catch (error) {
             console.error('Error deleting customer account:', error);
         }
     };
 
+    const closeModal = () => {
+        setShowModal(false);
+    };
+
     return (
         <div className={styles.customerAccountsContainer}>
             <h2>Customer Accounts</h2>
-            <form onSubmit={handleSubmit} className={styles.customerAccountsForm}>
+            <div className={styles.searchContainer}>
                 <input
                     type="text"
-                    name="username"
-                    value={newCustomerAccount.username}
+                    placeholder="Enter Customer ID"
+                    value={customerId}
                     onChange={handleInputChange}
-                    placeholder="Username"
-                    required
-                    className={styles.customerAccountsInput}
                 />
-                <input
-                    type="password"
-                    name="password"
-                    value={newCustomerAccount.password}
-                    onChange={handleInputChange}
-                    placeholder="Password"
-                    required
-                    className={styles.customerAccountsInput}
+                <button className={styles.searchButton} onClick={handleSearch}>Search</button>
+            </div>
+            {selectedAccount ? (
+                <div className={styles.accountDetails}>
+                    <h3>Customer Details</h3>
+                    <p>Name: {selectedAccount.name}</p>
+                    <p>Email: {selectedAccount.email}</p>
+                    <p>Phone: {selectedAccount.phone}</p>
+                    <p>Customer ID: {selectedAccount.customer_id}</p>
+                    <div className={styles.actions}>
+                        <button onClick={handleUpdate}>Update Details</button>
+                        <button onClick={handleDelete}>Delete Account</button>
+                        <button onClick={() => setSelectedAccount(null)}>Close Details</button>
+                    </div>
+                </div>
+            ) : null}
+
+            {showModal && (
+                <Modal
+                    message={modalMessage}
+                    customerDetails={modalCustomerDetails}
+                    closeModal={closeModal}
                 />
-                <input
-                    type="text"
-                    name="customer_id"
-                    value={newCustomerAccount.customer_id}
-                    onChange={handleInputChange}
-                    placeholder="Customer ID"
-                    required
-                    className={styles.customerAccountsInput}
-                />
-                <button type="submit" className={styles.customerAccountsButton}>Save</button>
-            </form>
-            <ul className={styles.customerAccountsList}>
-                {customerAccounts.map((account) => (
-                    <li key={account.id} className={styles.customerAccountsListItem}>
-                        {account.username} - {account.customer_id}
-                        <button onClick={() => handleDelete(account.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+            )}
         </div>
     );
 };
 
 export default CustomerAccounts;
-
-

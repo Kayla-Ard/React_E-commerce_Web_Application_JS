@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import CustomModal from '../Modal/Modal';
 import styles from './AdminProducts.module.css';
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [modalTitle, setModalTitle] = useState('');
-  const [modalContent, setModalContent] = useState('');
 
   useEffect(() => {
     fetchProducts();
@@ -16,7 +12,8 @@ const AdminProducts = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5001/products');
+      const response = await axios.get('http://127.0.0.1:5001/products');
+      console.log(response.data);
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -25,9 +22,8 @@ const AdminProducts = () => {
 
   const handleAddProduct = async (product) => {
     try {
-      await axios.post('http://localhost:5001/products', product);
+      await axios.post('http://127.0.0.1:5001/products', product);
       fetchProducts();
-      showConfirmationModal('Product added successfully');
     } catch (error) {
       console.error('Error adding product:', error);
     }
@@ -35,10 +31,9 @@ const AdminProducts = () => {
 
   const handleUpdateProduct = async (id, updatedProduct) => {
     try {
-      await axios.put(`http://localhost:5001/products/${id}`, updatedProduct);
+      await axios.put(`http://127.0.0.1:5001/products/${id}`, updatedProduct);
       fetchProducts();
-      showConfirmationModal('Product updated successfully');
-      setSelectedProduct(null); // Reset selected product after update
+      setSelectedProduct(null);
     } catch (error) {
       console.error('Error updating product:', error);
     }
@@ -46,18 +41,33 @@ const AdminProducts = () => {
 
   const handleDeleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:5001/products/${id}`);
-      fetchProducts();
-      showConfirmationModal('Product deleted successfully');
+      console.log(`Deleting product with id: ${id}`);
+      const response = await axios.delete(`http://127.0.0.1:5001/products/${id}`);
+      console.log('Delete response:', response.data);
+      
+      setProducts((prevProducts) => prevProducts.filter((product) => product.product_id !== id));
     } catch (error) {
       console.error('Error deleting product:', error);
     }
   };
+  
 
-  const showConfirmationModal = (message) => {
-    setModalTitle('Confirmation');
-    setModalContent(message);
-    setShowModal(true);
+  const handleEditProduct = (product) => {
+    setSelectedProduct(product);
+    window.scrollTo(0, 0);
+  };
+
+  // const handleClearSelection = () => {
+  //   setSelectedProduct(null);
+  // };
+
+  const handleFormSubmit = async (formData) => {
+    if (selectedProduct && selectedProduct.product_id) {
+      await handleUpdateProduct(selectedProduct.product_id, formData);
+    } else {
+      await handleAddProduct(formData);
+    }
+    setSelectedProduct(null);
   };
 
   return (
@@ -65,71 +75,68 @@ const AdminProducts = () => {
       <h2 className={styles.header}>Admin Products Management</h2>
       <ProductForm
         product={selectedProduct}
-        onAddProduct={handleAddProduct}
-        onUpdateProduct={handleUpdateProduct}
+        onSubmit={handleFormSubmit}
       />
       <ProductList
         products={products}
-        onSelectProduct={setSelectedProduct}
+        onSelectProduct={handleEditProduct}
         onDeleteProduct={handleDeleteProduct}
       />
-      <CustomModal
-        show={showModal}
-        handleClose={() => setShowModal(false)}
-        title={modalTitle}
-      >
-        {modalContent}
-      </CustomModal>
     </div>
   );
 };
 
-const ProductForm = ({ product, onAddProduct, onUpdateProduct }) => {
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [isEditing, setIsEditing] = useState(false); // Track whether in edit mode
+const ProductForm = ({ product, onSubmit }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    price: '',
+  });
 
   useEffect(() => {
     if (product) {
-      setName(product.name || '');
-      setPrice(product.price || '');
-      setIsEditing(true); // Set edit mode when product is provided
-    } else {
-      setName('');
-      setPrice('');
-      setIsEditing(false); // Reset edit mode when no product is provided
+      setFormData({
+        name: product.name || '',
+        price: product.price || '',
+      });
     }
   }, [product]);
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isEditing && product && product.id) {
-      onUpdateProduct(product.id, { name, price });
-    } else {
-      onAddProduct({ name, price });
-    }
+    onSubmit(formData);
+    setFormData({ name: '', price: '' });
   };
 
   return (
     <form onSubmit={handleSubmit} className={styles.productForm}>
       <input
         type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+        name="name"
+        value={formData.name}
+        onChange={handleChange}
         placeholder="Product Name"
         className={styles.inputField}
         required
       />
       <input
         type="number"
-        value={price}
-        onChange={(e) => setPrice(e.target.value)}
+        name="price"
+        value={formData.price}
+        onChange={handleChange}
         placeholder="Product Price"
         className={styles.inputField}
         required
       />
       <button type="submit" className={styles.submitButton}>
-        {isEditing ? 'Update Product' : 'Add Product'}
+        {product ? 'Update Product' : 'Add Product'}
       </button>
     </form>
   );
@@ -138,24 +145,30 @@ const ProductForm = ({ product, onAddProduct, onUpdateProduct }) => {
 const ProductList = ({ products, onSelectProduct, onDeleteProduct }) => {
   const handleEditProduct = (product) => {
     onSelectProduct(product);
-    window.scrollTo(0, 0); // Scroll to top when editing
+    window.scrollTo(0, 0);
   };
 
   return (
     <ul className={styles.productList}>
       {products.map((product) => (
-        <li key={product.id} className={styles.productItem}>
+        <li key={product.product_id} className={styles.productItem}>
           <span className={styles.productDetails}>
-            {product.name} - ${product.price}
+            {product.name} - ${product.price} (ID: {product.product_id})
           </span>
           <button
-            onClick={() => handleEditProduct(product)}
+            onClick={() => {
+              console.log(`Edit button clicked for product ID: ${product.product_id}`); // Log the product ID
+              handleEditProduct(product);
+            }}
             className={styles.editButton}
           >
             Edit
           </button>
           <button
-            onClick={() => onDeleteProduct(product.id)}
+            onClick={() => {
+              console.log(`Delete button clicked for product ID: ${product.product_id}`); // Log the product ID
+              onDeleteProduct(product.product_id);
+            }}
             className={styles.deleteButton}
           >
             Delete

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:5001';
+const API_BASE_URL = 'http://127.0.0.1:5001';
 
 // Fetch all customers
 export const fetchCustomers = async () => {
@@ -202,7 +202,18 @@ export const saveCustomerAccount = async (customerAccount) => {
     }
 };
 
-// Delete a customer account by ID
+// Update customer account
+export const updateCustomerAccount = async (accountId, updatedAccount) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/customer_accounts/${accountId}`, updatedAccount);
+        return response.data;
+    } catch (error) {
+        console.error(`Error updating customer account with ID ${accountId}:`, error);
+        throw error;
+    }
+};
+
+// Delete customer account
 export const deleteCustomerAccount = async (accountId) => {
     try {
         await axios.delete(`${API_BASE_URL}/customer_accounts/${accountId}`);
@@ -211,9 +222,3 @@ export const deleteCustomerAccount = async (accountId) => {
         throw error;
     }
 };
-
-
-
-
-
-

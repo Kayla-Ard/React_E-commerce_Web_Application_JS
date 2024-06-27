@@ -26,7 +26,7 @@ import ballImage from '../ProductImages/Ball.jpg';
 import catnipImage from '../ProductImages/catnip.jpg';
 import bagsImage from '../ProductImages/bags.png';
 
-const ProductCard = ({ product, onAddToCart }) => {
+const ProductCard = ({ product, onAddToCart,  onDeleteProduct, onUpdateProduct }) => {
     const [quantity, setQuantity] = useState(0);
 
     const getImage = (productName) => {
@@ -37,8 +37,6 @@ const ProductCard = ({ product, onAddToCart }) => {
                 return dogFoodImage;
             case 'Plastic Dog Chew Toy':
                 return dogToyImage;
-            case 'Beta Fish':
-                return betaFishImage;
             case 'Purina Pro Plan Wet Cat Food':
                 return purinaProPlanWetCatFoodImage;
             case 'Purina Tidy Cats Cat Litter':
@@ -109,6 +107,15 @@ const ProductCard = ({ product, onAddToCart }) => {
             onAddToCart(cartItem); 
             setQuantity(0); 
         }
+    };
+
+    const handleEdit = () => {
+        const updatedProduct = {
+            ...product,
+            name: prompt('Update Product Name:', product.name),
+            price: prompt('Update Product Price:', product.price),
+        };
+        onUpdateProduct(product.product_id, updatedProduct);
     };
 
     return (

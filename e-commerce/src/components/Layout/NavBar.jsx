@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect} from 'react';
+import { Link , useHistory} from 'react-router-dom';
 import styles from './NavBar.module.css';
 import FurBabyLogo from './FurBabyLogo.png';
 import { FaSearch, FaMapMarkerAlt, FaShoppingCart } from 'react-icons/fa';
@@ -13,6 +13,12 @@ const NavBar = () => {
     const [isAddressModalOpen, setAddressModalOpen] = useState(false);
     const [isCartModalOpen, setCartModalOpen] = useState(false);
     const [isAdminModalOpen, setAdminModalOpen] = useState(false);
+    const history = useHistory();
+
+    // Close the menu when navigating to a new page
+    useEffect(() => {
+        setIsOpen(false);
+    }, [history.location.pathname]);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
