@@ -12,6 +12,17 @@
     z-index: 1001;
 }
 
+.modal {
+
+    background-color: var(--cream);
+    color: var(--space);
+    z-index: 100;
+}
+
+.modalContent {
+    color: var(--water);
+}
+
 .customerModalContent {
     background: var(--space);
     padding: 20px;

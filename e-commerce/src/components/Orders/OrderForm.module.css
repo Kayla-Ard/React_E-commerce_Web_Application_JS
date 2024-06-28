@@ -1,14 +1,18 @@
 .formContainer {
     padding: 10px;
     padding-bottom: 20px;
-    background-color: var(--cream);
+    background-color: var(--space);
     color: var(--space);
-    border: 1px solid var(--space);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 150px;
-    position: relative;
-    z-index: 1;
+    margin: 20px auto;
+    width: 100%;
+}
+
+.formWrapper {
+    overflow-y: auto;
+    padding-left: 10px;
+    height: 100%;
 }
 
 .formGroup {
@@ -24,13 +28,13 @@
 .formGroup input[type="text"],
 .formGroup input[type="email"],
 .formGroup input[type="phone"] {
-    width: calc(100% - 16px);
     padding: 8px;
     font-size: 14px;
     border-radius: 4px;
     background-color: var(--violet);
     border: 2px solid var(--space);
     color: var(--water);
+    width: 96%;
 }
 
 .formGroup input[type="text"]:focus,
@@ -48,7 +52,6 @@
 
 .submitButton {
     background-color: var(--water);
-    color: var(--space);
     border: none;
     padding: 10px 10px;
     border-radius: 4px;
@@ -57,6 +60,9 @@
     background-color: var(--water);
     color: var(--cream);
     border: 1px solid var(--violet);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 98%;
 }
 
 .submitButton:hover {

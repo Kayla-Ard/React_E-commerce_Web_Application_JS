@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom'; 
 import { Card, ListGroup } from 'react-bootstrap';
 import styles from './OrderDetails.module.css'; 
+import axios from 'axios';
 
 const OrderDetails = () => {
     const { orderId } = useParams();
@@ -15,13 +16,13 @@ const OrderDetails = () => {
 
     const fetchOrderDetails = async (orderId) => {
         try {
-            const response = await fetch(`http://localhost:5001/orders/${orderId}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch order details');
-            }
-            const data = await response.json();
-            console.log('Fetched order data:', data); 
-            setOrder(data);
+            const response = await axios.get(`http://localhost:5001/orders/${orderId}`);
+            // if (!response.ok) {
+            //     throw new Error('Failed to fetch order details');
+            // }
+            // const data = await response.json();
+            console.log('Fetched order data:', response.data); 
+            setOrder(response.data);
         } catch (error) {
             setError('Error fetching order details');
             console.error('Error fetching order details:', error);

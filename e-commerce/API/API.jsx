@@ -42,6 +42,17 @@ export const saveCustomer = async (customer) => {
     }
 };
 
+// Update customer
+export const updateCustomer = async (customerId, updatedCustomer) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/customers/${customerId}`, updatedCustomer);
+        return response.data;
+    } catch (error) {
+        console.error(`Error updating customer with ID ${customerId}:`, error);
+        throw error;
+    }
+};
+
 // Delete a customer by ID
 export const deleteCustomer = async (customerId) => {
     try {
@@ -102,7 +113,7 @@ export const deleteProduct = async (productId) => {
     }
 };
 
-// Fetch all orders
+// Get all orders
 export const fetchOrders = async () => {
     try {
         const response = await axios.get(`${API_BASE_URL}/orders`);
@@ -113,7 +124,7 @@ export const fetchOrders = async () => {
     }
 };
 
-// Fetch orders by customer ID
+// Get orders by customer ID
 export const fetchOrdersByCustomerId = async (customerId) => {
     try {
         const response = await axios.get(`${API_BASE_URL}/orders/${customerId}`);
@@ -152,73 +163,3 @@ export const deleteOrder = async (orderId) => {
     }
 };
 
-// Track an order by ID
-export const trackOrder = async (orderId) => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/track_order/${orderId}`);
-        return response.data;
-    } catch (error) {
-        console.error(`Error tracking order with ID ${orderId}:`, error);
-        throw error;
-    }
-};
-
-// Cancel an order by ID
-export const cancelOrder = async (orderId) => {
-    try {
-        await axios.delete(`${API_BASE_URL}/cancel_order/${orderId}`);
-    } catch (error) {
-        console.error(`Error canceling order with ID ${orderId}:`, error);
-        throw error;
-    }
-};
-
-// Fetch all customer accounts
-export const fetchCustomerAccounts = async () => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/customer_accounts`);
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching customer accounts:', error);
-        throw error;
-    }
-};
-
-// Add or update a customer account
-export const saveCustomerAccount = async (customerAccount) => {
-    try {
-        if (customerAccount.account_id) {
-            // Update existing customer account
-            const response = await axios.put(`${API_BASE_URL}/customer_accounts/${customerAccount.account_id}`, customerAccount);
-            return response.data;
-        } else {
-            // Add new customer account
-            const response = await axios.post(`${API_BASE_URL}/customer_accounts`, customerAccount);
-            return response.data;
-        }
-    } catch (error) {
-        console.error('Error saving customer account:', error);
-        throw error;
-    }
-};
-
-// Update customer account
-export const updateCustomerAccount = async (accountId, updatedAccount) => {
-    try {
-        const response = await axios.put(`${API_BASE_URL}/customer_accounts/${accountId}`, updatedAccount);
-        return response.data;
-    } catch (error) {
-        console.error(`Error updating customer account with ID ${accountId}:`, error);
-        throw error;
-    }
-};
-
-// Delete customer account
-export const deleteCustomerAccount = async (accountId) => {
-    try {
-        await axios.delete(`${API_BASE_URL}/customer_accounts/${accountId}`);
-    } catch (error) {
-        console.error(`Error deleting customer account with ID ${accountId}:`, error);
-        throw error;
-    }
-};

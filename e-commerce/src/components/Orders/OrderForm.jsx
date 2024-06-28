@@ -12,7 +12,7 @@ const OrderForm = () => {
     const [formData, setFormData] = useState({
         customerName: '',
         customerEmail: '',
-        items: [],
+        // items: [],
     });
 
     useEffect(() => {
@@ -83,49 +83,51 @@ const OrderForm = () => {
     };
 
     return (
-        <div className={styles.formContainer}> 
+        <div className={styles.formContainer}>
             <h2>Create Order</h2>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="customerName" className={styles.formGroup}> 
-                    <Form.Label>Customer Name</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="customerName"
-                        value={formData.customerName}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group controlId="customerEmail" className={styles.formGroup}> 
-                    <Form.Label>Customer Email</Form.Label>
-                    <Form.Control
-                        type="email"
-                        name="customerEmail"
-                        value={formData.customerEmail}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </Form.Group>
-
-                <Form.Group className={styles.formGroup}> 
-                    <Form.Label>Select Products</Form.Label>
-                    {products.map((product) => (
-                        <Form.Check
-                            key={product.product_id}
-                            type="checkbox"
-                            id={`product-${product.product_id}`}
-                            label={`${product.name} - $${product.price}`}
-                            onChange={(e) => handleProductChange(e, product.product_id)}
-                            className="form-check-input"
+            <div className={styles.formWrapper}>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="customerName" className={styles.formGroup}>
+                        <Form.Label>Customer Name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            name="customerName"
+                            value={formData.customerName}
+                            onChange={handleInputChange}
+                            required
                         />
-                    ))}
-                </Form.Group>
+                    </Form.Group>
 
-                <Button variant="primary" type="submit" className={styles.submitButton}> 
-                    Submit Order
-                </Button>
-            </Form>
+                    <Form.Group controlId="customerEmail" className={styles.formGroup}>
+                        <Form.Label>Customer Email</Form.Label>
+                        <Form.Control
+                            type="email"
+                            name="customerEmail"
+                            value={formData.customerEmail}
+                            onChange={handleInputChange}
+                            required
+                        />
+                    </Form.Group>
+
+                    <Form.Group className={styles.formGroup}>
+                        <Form.Label>Select Products</Form.Label>
+                        {products.map((product) => (
+                            <Form.Check
+                                key={product.product_id}
+                                type="checkbox"
+                                id={`product-${product.product_id}`}
+                                label={`${product.name} - $${product.price}`}
+                                onChange={(e) => handleProductChange(e, product.product_id)}
+                                className="form-check-input"
+                            />
+                        ))}
+                    </Form.Group>
+
+                    <Button variant="primary" type="submit" className={styles.submitButton}>
+                        Submit Order
+                    </Button>
+                </Form>
+            </div>
         </div>
     );
 };

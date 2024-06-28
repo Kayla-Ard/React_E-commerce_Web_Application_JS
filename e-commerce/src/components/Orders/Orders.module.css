@@ -1,18 +1,20 @@
 .ordersContainer {
     padding: 20px;
-    padding-bottom: 20px;
     background-color: var(--cream);
-    border: 1px solid var(--space);
+    border: 3px solid var(--space);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 20px;
-    position: relative;
-    z-index: 1;
+    margin: 20px; 
 }
 
 .ordersList {
     list-style: none;
     padding: 0;
+}
+
+.ordersListContainer {
+    max-height: 60vh;
+    overflow-y: auto;
 }
 
 .orderItem {
@@ -53,6 +55,7 @@
     background-color: var(--water); 
     color: var(--cream); 
     border: 1px solid var(--violet);
+    margin-top: 20px;
 }
 
 .createOrderButton:hover {
