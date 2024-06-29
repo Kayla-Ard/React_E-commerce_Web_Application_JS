@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Form, Button, Modal } from 'react-bootstrap';
 import styles from './OrderForm.module.css';
+import FurBabyLogo from "../Layout/FurBabyLogo.png"
 
 const OrderForm = () => {
     const history = useHistory();
@@ -76,6 +77,16 @@ const OrderForm = () => {
             const data = await response.json();
             setOrderDetails({ ...orderData, order_id: data.order_id });
             setShowModal(true);
+
+            setTimeout(() => {
+                setFormData({
+                    customer_id: '',
+                    date: '',
+                });
+                setSelectedProducts([]);
+                setShowModal(false);
+            }, 5000);
+
         } catch (error) {
             console.error('Error creating order:', error);
         }
@@ -83,14 +94,21 @@ const OrderForm = () => {
 
     return (
         <div className={styles.formContainer}>
-            <h2>Create Order</h2>
+            <div className={styles.backToOrdersContainer}>
+                <Button className={styles.backToOrdersButton} variant="secondary" onClick={() => history.push('/orders')}>
+                    Back to Orders
+                </Button>
+            </div>
+            <h2 className={styles.header}>Create Order</h2>
             <div className={styles.formWrapper}>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="customer_id" className={styles.formGroup}>
-                        <Form.Label>Customer ID Number</Form.Label>
+                        <Form.Label className={styles.customerIDHeader}>Customer ID Number</Form.Label>
+                        <br></br>
                         <Form.Control
                             type="text"
                             name="customer_id"
+                            
                             placeholder="Enter customer ID number"
                             value={formData.customer_id}
                             onChange={handleInputChange}
@@ -99,26 +117,30 @@ const OrderForm = () => {
                     </Form.Group>
 
                     <Form.Group controlId="date" className={styles.formGroup}>
-                        <Form.Label>Date</Form.Label>
+                        <Form.Label className={styles.dateHeader}>Date</Form.Label>
+                        <br></br>
                         <Form.Control
                             type="date"
                             name="date"
+                            
                             value={formData.date}
                             onChange={handleInputChange}
                             required
                         />
                     </Form.Group>
-
+                    <br></br>
+                    <br></br>
                     <Form.Group className={styles.formGroup}>
-                        <Form.Label>Select Products</Form.Label>
+                        <Form.Label className={styles.productListHeader}>Select Products To Add To Your Order</Form.Label>
                         {products.map((product) => (
                             <Form.Check
                                 key={product.product_id}
+                                className={styles.productList}
                                 type="checkbox"
                                 id={`product-${product.product_id}`}
                                 label={`${product.name}  |  Product Id: ${product.product_id}  |  $${product.price}`}
                                 onChange={(e) => handleProductChange(e, product.product_id)}
-                                className="form-check-input"
+                                checked={selectedProducts.some(p => p.product_id === product.product_id)}
                             />
                         ))}
                     </Form.Group>
@@ -129,7 +151,6 @@ const OrderForm = () => {
                 </Form>
             </div>
             
-            <div className={styles.modalOverlay}>           
             <Modal
                 show={showModal}
                 onHide={() => setShowModal(false)}
@@ -137,6 +158,7 @@ const OrderForm = () => {
                 className={styles.modal}
             >
                 <Modal.Header closeButton className={styles.modalHeader}>
+                <img src={FurBabyLogo} alt="Fur Baby Boutique Logo" className={styles.logo}/>
                     <Modal.Title className={styles.modalTitle}>Order Created Successfully</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className={styles.modalBody}>
@@ -156,7 +178,6 @@ const OrderForm = () => {
                 </Modal.Footer>
             </Modal>
             </div> 
-        </div>
     );
 };
 
