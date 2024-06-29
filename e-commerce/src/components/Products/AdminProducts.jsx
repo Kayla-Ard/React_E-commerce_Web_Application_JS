@@ -157,7 +157,7 @@ const ProductList = ({ products, onSelectProduct, onDeleteProduct }) => {
           </span>
           <button
             onClick={() => {
-              console.log(`Edit button clicked for product ID: ${product.product_id}`); // Log the product ID
+              console.log(`Edit button clicked for product ID: ${product.product_id}`); 
               handleEditProduct(product);
             }}
             className={styles.editButton}
@@ -166,7 +166,7 @@ const ProductList = ({ products, onSelectProduct, onDeleteProduct }) => {
           </button>
           <button
             onClick={() => {
-              console.log(`Delete button clicked for product ID: ${product.product_id}`); // Log the product ID
+              console.log(`Delete button clicked for product ID: ${product.product_id}`); 
               onDeleteProduct(product.product_id);
             }}
             className={styles.deleteButton}

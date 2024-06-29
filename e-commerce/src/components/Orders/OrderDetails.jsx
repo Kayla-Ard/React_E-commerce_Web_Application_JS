@@ -45,28 +45,17 @@ const OrderDetails = () => {
 
     return (
         <div className={styles.orderDetailsContainer}>
-            <h2>Order Details</h2>
-            <Card>
+            <h2 className={styles.header}>Order Details</h2>
+            <Card className={styles.card}>
                 <Card.Body>
-                    <Card.Title>Order ID: {order.order_id}</Card.Title>
-                    <Card.Text>Order Date: {order.order_date}</Card.Text>
-                </Card.Body>
-                <ListGroup variant="flush">
-                    {order.items && order.items.map((item) => (
-                        <ListGroup.Item key={item.item_id} className={styles.orderItem}>
-                            <div className={styles.orderItemHeader}>
-                                {item.quantity} x {item.product_name} - ${item.total_price}
-                            </div>
-                        </ListGroup.Item>
-                    ))}
-                </ListGroup>
-                <Card.Body>
-                    <Card.Text className={styles.orderItemTotal}>
-                        Total Price: ${order.total_price}
-                    </Card.Text>
+                    <Card.Title>Order ID Number: {order.order_id}</Card.Title>
+                    <Card.Text>Date Order Was Placed: {order.date}</Card.Text>
+                    <Card.Text>Customer ID Number: {order.customer_id}</Card.Text>
+                    <Card.Title>Products Ordered (Listed By Product ID Numbers): {order.product_ids.join(', ')}</Card.Title>
                 </Card.Body>
             </Card>
             <div className={styles.returnButtonContainer}> 
+                
                 <Link to="/orders">
                     <button className={styles.returnButton}>Return to Orders</button>
                 </Link>

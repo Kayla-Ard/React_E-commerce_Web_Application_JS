@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Modal } from 'react-bootstrap';
 import styles from './OrderForm.module.css';
 
 const OrderForm = () => {
@@ -10,10 +10,12 @@ const OrderForm = () => {
     const [products, setProducts] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [formData, setFormData] = useState({
-        customerName: '',
-        customerEmail: '',
-        // items: [],
+        customer_id: '',
+        date: '',
     });
+
+    const [showModal, setShowModal] = useState(false);
+    const [orderDetails, setOrderDetails] = useState(null);
 
     useEffect(() => {
         fetchProducts();
@@ -57,10 +59,7 @@ const OrderForm = () => {
         e.preventDefault();
         const orderData = {
             ...formData,
-            items: selectedProducts.map((product) => ({
-                product_id: product.product_id,
-                quantity: 1, 
-            })),
+            product_ids: selectedProducts.map((product) => product.product_id),
         };
 
         try {
@@ -75,8 +74,8 @@ const OrderForm = () => {
                 throw new Error('Failed to create order');
             }
             const data = await response.json();
-            
-            history.push(`/orders/${data.order_id}`);
+            setOrderDetails({ ...orderData, order_id: data.order_id });
+            setShowModal(true);
         } catch (error) {
             console.error('Error creating order:', error);
         }
@@ -87,23 +86,24 @@ const OrderForm = () => {
             <h2>Create Order</h2>
             <div className={styles.formWrapper}>
                 <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="customerName" className={styles.formGroup}>
-                        <Form.Label>Customer Name</Form.Label>
+                    <Form.Group controlId="customer_id" className={styles.formGroup}>
+                        <Form.Label>Customer ID Number</Form.Label>
                         <Form.Control
                             type="text"
-                            name="customerName"
-                            value={formData.customerName}
+                            name="customer_id"
+                            placeholder="Enter customer ID number"
+                            value={formData.customer_id}
                             onChange={handleInputChange}
                             required
                         />
                     </Form.Group>
 
-                    <Form.Group controlId="customerEmail" className={styles.formGroup}>
-                        <Form.Label>Customer Email</Form.Label>
+                    <Form.Group controlId="date" className={styles.formGroup}>
+                        <Form.Label>Date</Form.Label>
                         <Form.Control
-                            type="email"
-                            name="customerEmail"
-                            value={formData.customerEmail}
+                            type="date"
+                            name="date"
+                            value={formData.date}
                             onChange={handleInputChange}
                             required
                         />
@@ -116,7 +116,7 @@ const OrderForm = () => {
                                 key={product.product_id}
                                 type="checkbox"
                                 id={`product-${product.product_id}`}
-                                label={`${product.name} - $${product.price}`}
+                                label={`${product.name}  |  Product Id: ${product.product_id}  |  $${product.price}`}
                                 onChange={(e) => handleProductChange(e, product.product_id)}
                                 className="form-check-input"
                             />
@@ -128,6 +128,34 @@ const OrderForm = () => {
                     </Button>
                 </Form>
             </div>
+            
+            <div className={styles.modalOverlay}>           
+            <Modal
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                centered
+                className={styles.modal}
+            >
+                <Modal.Header closeButton className={styles.modalHeader}>
+                    <Modal.Title className={styles.modalTitle}>Order Created Successfully</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className={styles.modalBody}>
+                    {orderDetails && (
+                        <>
+                            <p className={styles.modalText}>Order ID Number: {orderDetails.order_id}</p>
+                            <p className={styles.modalText}>Date: {orderDetails.date}</p>
+                            <p className={styles.modalText}>Customer ID Number: {orderDetails.customer_id}</p>
+                            <p className={styles.modalText}>Product IDs: {orderDetails.product_ids.join(', ')}</p>
+                        </>
+                    )}
+                </Modal.Body>
+                <Modal.Footer className={styles.modalFooter}>
+                    <Button className={styles.closeButton} variant="secondary" onClick={() => setShowModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            </div> 
         </div>
     );
 };

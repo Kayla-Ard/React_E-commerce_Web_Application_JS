@@ -1,33 +1,22 @@
 .orderDetailsContainer {
     padding: 10px;
-    padding-bottom: 20px;
     background-color: var(--cream);
-    color: var(--space);
-    border: 1px solid var(--space);
+    border: 3px solid var(--violet);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
+    margin-top: 120px;
 }
 
-.orderItem {
-    padding: 10px;
+.header {
+    text-align: center;
+    font-size: 35px;
     margin-bottom: 10px;
-    background-color: var(--violet);
-    border: 1px solid var(--space);
-    border-radius: 4px;
-    color: var(--cream);
+    color: var(--water);
 }
 
-.orderItemHeader {
-    font-weight: bold;
-}
-
-.orderItemTotal {
-    font-weight: bold;
+.card {
     font-size: 18px;
-    margin-top: 10px;
+    color: var(--space);
 }
 
 .returnButtonContainer {
