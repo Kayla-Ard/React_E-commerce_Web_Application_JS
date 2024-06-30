@@ -74,63 +74,8 @@ Welcome to the Fur Baby Boutique, a comprehensive e-commerce application designe
 - Informative Error Messages: Display informative error messages to users when errors occur, helping them understand the issue and how to resolve it.
 
 ## Folder Structure
-e-commerce/
-│
-├── API/
-│   └── API.jsx
-│
-├── src/
-│   ├── App.jsx
-│   ├── index.css
-│   └── main.jsx
-│
-├── components/
-│   ├── Customer/
-│   │   ├── AddCustomer.jsx
-│   │   ├── AddCustomer.module.css
-        ├── CustomerConfirmationModal.jsx
-│   │   ├── CustomerConfirmationModal.module.css
-│   │   ├── CustomerModal.jsx
-│   │   ├── CustomerModal.module.css
-│   │   ├── Customers.jsx
-│   │   └── Customers.module.css
-│   │
-│   ├── HomePage/
-│   │   ├── HomePage.jsx
-│   │   └── HomePage.module.css
-│   │
-│   ├── Layout/
-│   │   ├── Cart.jsx
-│   │   ├── Cart.module.css
-│   │   ├── CartModal.jsx
-│   │   ├── CartModal.module.css
-│   │   ├── Footer.jsx
-│   │   ├── Footer.module.css
-│   │   ├── Header.jsx
-│   │   ├── Header.module.css
-│   │   ├── NavBar.jsx
-│   │   └── NavBar.module.css
-│   │
-│   ├── Orders/
-│   │   ├── OrderDetails.jsx
-│   │   ├── OrderDetails.module.css
-│   │   ├── OrderForm.jsx
-│   │   ├── OrderForm.module.css
-│   │   ├── Orders.jsx
-│   │   └── Orders.module.css
-│   │
-│   ├── Products/
-│   │   ├── AdminModal.jsx
-│   │   ├── AdminModal.module.css
-│   │   ├── AdminProducts.jsx
-│   │   ├── AdminProducts.module.css
-│   │   ├── ProductCard.jsx
-│   │   ├── ProductCard.module.css
-│   │   ├── Products.jsx
-│   │   └── Products.module.css
-│
-└── README.md
 
+![Folder Structure](src/components/folderStructure.png)
 
 ## Getting Started
 
@@ -138,6 +83,8 @@ e-commerce/
 2. Install dependencies: Navigate to the e-commerce folder and run npm install for frontend dependencies and pip install -r requirements.txt for backend dependencies.
 3. Start the Flask API: Navigate to the backend directory and run flask run --port 5001.
 4. Start the React app: Navigate to the src folder and run npm start.
+
+
 
 
 
@@ -153,9 +100,9 @@ Link to project repository <https://github.com/Kayla-Ard/E_Commerce_API_Online_S
 - routes.py: Defines the API routes and their handlers.
 - config.py: Configuration file for setting environment variables and other settings.
 
-# API Endpoints
+## API Endpoints
 
-# Products
+## Products
 - GET /products: Retrieve a list of all products.
 - POST /products: Add a new product.
 - GET /products/<id>: Retrieve a product by its ID.
@@ -164,14 +111,14 @@ Link to project repository <https://github.com/Kayla-Ard/E_Commerce_API_Online_S
 - GET /products/name_of_product/<name>: Retrieve a product by its name.
 - POST /products/restock_products: Restock products below a specified threshold.
 
-# Customers
+## Customers
 - GET /customers: Retrieve a list of all customers.
 - POST /customers: Add a new customer.
 - GET /customers/<id>: Retrieve a customer by their ID.
 - PUT /customers/<id>: Update a customer by their ID.
 - DELETE /customers/<id>: Delete a customer by their ID.
 
-# Orders
+## Orders
 - GET /orders: Retrieve a list of all orders.
 - POST /orders: Create a new order.
 - GET /orders/<id>: Retrieve an order by its ID.
@@ -181,7 +128,7 @@ Link to project repository <https://github.com/Kayla-Ard/E_Commerce_API_Online_S
 - GET /track_order/<id>: Track an order by its ID.
 - DELETE /cancel_order/<id>: Cancel an order by its ID.
 
-# Customer Accounts
+## Customer Accounts
 - GET /customer_accounts: Retrieve a list of all customer accounts.
 - POST /customer_accounts: Add a new customer account.
 - PUT /customer_accounts/<id>: Update a customer account by its ID.
