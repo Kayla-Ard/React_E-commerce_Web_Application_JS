@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styles from './Customers.module.css';
 import AddCustomer from './AddCustomer';
 import { fetchCustomers, fetchCustomerById, saveCustomer, deleteCustomer, updateCustomer } from '../../../API/API';
@@ -21,6 +21,8 @@ const Customers = () => {
 
     const [errorMessage, setErrorMessage] = useState('');
     const [updateMessage, setUpdateMessage] = useState('');
+    const [deleteSuccessMessage, setDeleteSuccessMessage] = useState('');
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
     useEffect(() => {
         loadCustomers();
@@ -47,7 +49,7 @@ const Customers = () => {
 
     const handleInputChange = (e) => {
         setCustomerId(e.target.value);
-        setErrorMessage(''); 
+        setErrorMessage('');
     };
 
     const handleEditInputChange = (e) => {
@@ -64,6 +66,7 @@ const Customers = () => {
     
             if (savedCustomer && savedCustomer.customer_id) {
                 setCustomers([...customers, savedCustomer]);
+                
                 setModalCustomerDetails({
                     customer_id: savedCustomer.customer_id,
                     name: savedCustomer.name,
@@ -92,12 +95,19 @@ const Customers = () => {
             const customer = await fetchCustomerById(customerId);
             if (customer) {
                 setSelectedCustomer(customer);
-                setEditCustomer({ 
+                setEditCustomer({
                     name: customer.name,
                     email: customer.email,
                     phone: customer.phone
                 });
                 setErrorMessage('');
+                
+                setTimeout(() => {
+                    const customerDetailsElement = document.getElementById('customerDetails');
+                    if (customerDetailsElement) {
+                        customerDetailsElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 100);
             } else {
                 console.error('No customer found with ID:', customerId);
                 setSelectedCustomer(null);
@@ -145,7 +155,6 @@ const Customers = () => {
                     setUpdateMessage('');
                     closeModal();
                     
-                    // history.push(`/customers/${updatedCustomer.customer_id}`);
                 }, 5000);
             } else {
                 console.error('Update failed.');
@@ -155,12 +164,9 @@ const Customers = () => {
         }
     };
     
-    
 
     const handleDeleteConfirmation = () => {
-        setIsDeleteConfirmation(true);
-        setModalMessage(`Are you sure you want to delete customer ID ${selectedCustomer.customer_id}?`);
-        setShowModal(true);
+        setShowDeleteConfirmation(true);
     };
 
     const handleDelete = async () => {
@@ -170,34 +176,35 @@ const Customers = () => {
                 return;
             }
             await deleteCustomer(selectedCustomer.customer_id);
-            
+    
             setCustomers(customers.filter((customer) => customer.customer_id !== selectedCustomer.customer_id));
-
-            setModalMessage('Customer deleted successfully!');
-            setModalCustomerDetails(selectedCustomer);
-            setShowModal(true);
-
+    
+            setDeleteSuccessMessage('Customer deleted successfully!');
+            setSelectedCustomer(null);
+            setShowDeleteConfirmation(false);
+    
             setTimeout(() => {
-                setShowModal(false);
+                setDeleteSuccessMessage('');
                 closeModal();
-            }, 6000); 
+            }, 5000);
         } catch (error) {
             console.error('Error deleting customer:', error);
         }
-
     };
+    
 
     const closeModal = () => {
         setShowModal(false);
-        setIsDeleteConfirmation(false);
         setCustomerId('');
         setSelectedCustomer(null);
-    }
+    };
+
 
     return (
         <div className={styles.container}>
             <h1 className={styles.heading}>Customers</h1>
-            {updateMessage && <p className={styles.updateMessage}>{updateMessage}</p>} {/* Display update message */}
+            {updateMessage && <p className={styles.updateMessage}>{updateMessage}</p>} 
+            
             <div className={styles.section}>
                 <h2>Sign Up Today & Become A Fur Baby Member!</h2>
                 <AddCustomer onSave={handleSaveCustomer} />
@@ -217,7 +224,7 @@ const Customers = () => {
                 {updateMessage && (
                     <p className={`${styles.successMessage} ${styles.message}`}>{updateMessage}</p>
                 )}
-
+                {deleteSuccessMessage && <p className={styles.deleteMessage}>{deleteSuccessMessage}</p>}
                 {errorMessage && (
                     <p className={styles.errorMessage}>{errorMessage}</p>
                 )}
@@ -244,6 +251,7 @@ const Customers = () => {
                                     value={editCustomer.name}
                                     onChange={handleEditInputChange}
                                     placeholder="Name"
+                                    className={styles.editInput}
                                 />
                                 <input
                                     type="email"
@@ -251,6 +259,7 @@ const Customers = () => {
                                     value={editCustomer.email}
                                     onChange={handleEditInputChange}
                                     placeholder="Email"
+                                    className={styles.editInput}
                                 />
                                 <input
                                     type="text"
@@ -258,20 +267,29 @@ const Customers = () => {
                                     value={editCustomer.phone}
                                     onChange={handleEditInputChange}
                                     placeholder="Phone"
+                                    className={styles.editInput}
                                 />
-                                <button type="submit">Save Changes</button>
-                                <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+                                <button className={styles.button} type="submit">Save Changes</button>
+                                <button className={styles.button} type="button" onClick={() => setIsEditing(false)}>Cancel</button>
                             </form>
                         )}
+                        
                     </div>
                 )}
             </div>
             {showModal && (
                 <CustomerConfirmationModal
-                    isOpen={showModal}
-                    onRequestClose={closeModal}
-                    customer={modalCustomerDetails}
-                />
+                isOpen={showModal}
+                onRequestClose={closeModal}
+                customer={modalCustomerDetails}
+            />
+            )}
+            {showDeleteConfirmation && (
+                <div className={styles.deleteConfirmation}>
+                    <p>Are you sure you want to delete this customer?</p>
+                    <button className={styles.deleteButton} onClick={handleDelete}>Confirm Delete</button>
+                    <button className={styles.deleteButton} onClick={() => setShowDeleteConfirmation(false)}>Cancel</button>
+                </div>
             )}
         </div>
     );

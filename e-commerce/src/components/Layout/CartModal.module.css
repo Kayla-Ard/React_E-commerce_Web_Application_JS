@@ -1,29 +1,32 @@
 
 .modalOverlay {
     position: fixed;
-    top: 0;
+    top:0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    right: 0;
+    bottom:0;
     background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .modalContent {
     background: var(--cream);
     color: var(--space);
-    font-size: 18px;
+    font-size: 14px;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 80vh;
-    max-width: 90%;
-    text-align: center;
     border: 3px solid var(--space);
     position: relative;
+    max-width: 600px;
+    text-align: center;
+    max-height: 80vh; 
+    overflow-y: auto; 
+    margin-bottom: 120px;
+    margin-top: 10px;
 }
 
 .closeButton {
@@ -50,16 +53,21 @@
 
 .cartItems {
     margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cartItem {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr 1fr auto; 
+    gap: 10px; 
+    width: 100%;
     padding: 10px 0;
-    border-bottom: 1px solid var(--silver);
+    border-bottom: 1px solid var(--violet);
     align-items: center;
-    margin-bottom: 10px;
+    font-weight: bold;
+    color: var(--space);
 }
 
 .cartItem input[type="number"] {
@@ -67,21 +75,23 @@
     padding: 5px;
     font-size: 16px;
     margin-left: 10px;
-    border: 1px solid var(--silver);
+    border: 1px solid var(--violet);
     border-radius: 4px;
+}
+
+.subTotal, .tax, .totalPrice {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    color: var(--space);
 }
 
 .totalPrice {
     font-weight: bold;
     margin-bottom: 20px;
-    font-size: 25px;
-    color: var(--space);
-}
-
-.subTotal span,
-.tax span,
-.totalPrice span {
-    color: var(--space); 
+    font-size: 20px;
+    color: red;
 }
 
 .modalButtons {
@@ -196,8 +206,8 @@ form input {
 }
 
 .modalContent3 {
-    background-color: var(--space); 
-    color: var(--cream);
+    background-color: var(--cream); 
+    color: var(--space);
     padding: 20px;
     border-radius: 8px;
     width: 80vh;
@@ -206,4 +216,9 @@ form input {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     max-height: 80vh; 
     text-align: center;
+}
+
+.logoimg {
+    width: 250px;
+    height:auto;
 }

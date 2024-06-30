@@ -94,12 +94,15 @@ const OrderForm = () => {
 
     return (
         <div className={styles.formContainer}>
+            
             <div className={styles.backToOrdersContainer}>
+            <h2 className={styles.header}>Create New Order</h2>
                 <Button className={styles.backToOrdersButton} variant="secondary" onClick={() => history.push('/orders')}>
                     Back to Orders
                 </Button>
+                
             </div>
-            <h2 className={styles.header}>Create Order</h2>
+            
             <div className={styles.formWrapper}>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="customer_id" className={styles.formGroup}>

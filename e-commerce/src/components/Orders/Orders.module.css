@@ -5,15 +5,14 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 20px; 
-    /* overflow-y: auto;
-    height: 100%; */
     margin-bottom: 150px;
 }
 
 .header {
-    color: var(--water);
+    color: var(--cream);
     font-size: 35px;
-    text-align: center;
+    text-align: left;
+    margin-left: 15px;
 }
 
 .header2 {

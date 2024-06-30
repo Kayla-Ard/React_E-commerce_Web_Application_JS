@@ -24,8 +24,9 @@ const Orders = () => {
     };
 
     return (
+        <div>
+        <h1 className={styles.header}>Current Orders</h1>
         <div className={styles.ordersContainer}>
-            <h1 className={styles.header}>Orders</h1>
             <h2 className={styles.header2}>Click on any order below to see the details of that order</h2>
             <ul className={styles.ordersList}>
                 {orders.map((order) => (
@@ -39,6 +40,7 @@ const Orders = () => {
             <Link to="/orders/new"> 
                 <button className={styles.createOrderButton}>Create New Order</button>
             </Link>
+        </div>
         </div>
     );
 };

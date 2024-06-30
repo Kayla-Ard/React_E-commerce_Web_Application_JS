@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--silver);
+    background-color: var(--cream);
     padding: 10px 0px;
     position: fixed;
     top: 0;
@@ -53,14 +53,15 @@
 .menu {
     display: none;
     flex-direction: column;
-    background-color: var(--silver);
+    background-color: var(--cream);
     position: absolute;
-    top: 90px;
+    top: 100px;
     right: 0;
     width: 20%;
     border-radius: 5px;
     z-index: 5;
     margin-right: 15px;
+    border: 1px solid var(--violet);
 }
 
 .menu.open {
@@ -110,10 +111,10 @@
 }
 
 .modal {
-    background-color: var(--silver);
+    background-color: var(--cream);
     color: var(--water);
     position: absolute;
-    top: 60px;
+    top: 70px;
     right: 0;
     font-size: 18px;
     font-weight: bold;
@@ -121,6 +122,7 @@
     text-align: center;
     border-radius: 2px;
     z-index: 3;
+    border: 1px solid var(--violet);
 }
 
 .addressIcon, .cartIcon {

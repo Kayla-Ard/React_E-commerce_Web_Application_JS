@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Modal from 'react-modal';
-
+import FurBabyLogo from '../Layout/FurBabyLogo.png'
 import styles from './CartModal.module.css';
 import { useCart } from './Cart';
 
@@ -74,6 +74,7 @@ const CartModal = ({ onClose }) => {
                 <p>Your order has been placed & your items will arrive within 4-7 business days.</p>
                 <br></br>
                 <p>Confirmation Number: {Math.floor(Math.random() * 1e9)}</p>
+                <img className={styles.logoimg} src={FurBabyLogo} alt='Logo Image'></img>
             </div>
         </Modal>
     );
@@ -107,7 +108,8 @@ const CartModal = ({ onClose }) => {
         <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
                 <button className={styles.closeButton} onClick={onClose}>×</button>
-                <h2>Your Cart</h2>
+                <img src={FurBabyLogo} alt='Logo image'></img>
+                <h2>Your Shopping Cart</h2>
                 <div className={styles.cartItems}>
                     {cartItems.map(item => (
                         <div key={item.product_id} className={styles.cartItem}>

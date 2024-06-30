@@ -4,6 +4,7 @@
     color: var(--space);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 150px;
 }
 
 .formWrapper {
@@ -13,8 +14,9 @@
 }
 
 .header {
-    text-align: center;
+    text-align: left;
     font-size: 35px;
+    margin-bottom: 30px;
 }
 
 .productList {
@@ -24,9 +26,8 @@
 
 .customerIDHeader, .dateHeader, .productListHeader {
     font-size: 28px;
-    color: var(--violet);
+    color: var(--cream);
     font-weight: bolder;
-    font-style: italic;
     margin-bottom: 25px;
 }
 
@@ -79,9 +80,6 @@
 
 
 .modal {
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
     background-color: var(--cream);
     color: var(--space);
     padding: 15px;
@@ -131,8 +129,8 @@
 
 .backToOrdersContainer {
     display: flex;
-    justify-content: flex-end;
-    position: fixed;
+    justify-content: space-between;
+    
 }
 
 .backToOrdersButton {
@@ -144,6 +142,8 @@
     font-size: 16px;
     color: var(--cream);
     margin-top: 10px;
+    height: 40px;
+    width: auto;
 }
 
 .backToOrdersButton:hover {

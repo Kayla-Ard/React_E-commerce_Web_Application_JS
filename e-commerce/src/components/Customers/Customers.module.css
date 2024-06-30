@@ -46,6 +46,7 @@
     background-color: var(--water);
     color: var(--cream);
     border: 1px solid var(--violet);
+    margin-top: 10px;
 }
 
 .button:hover {
@@ -60,19 +61,20 @@
     color: var(--space);
 }
 
-.inputBox {
+.inputBox, .editInput {
     font-size: 18px;
     color: var(--water);
     background-color: var(--violet);
     border: 1px solid var(--space);
-    border-radius: 2px;
+    border-radius: 5px;
+    margin-bottom: 5px;
 }
 
-.inputBox::placeholder {
+.inputBox::placeholder, .editInput::placeholder {
     color: var(--water);
 }
 
-.inputBox:focus {
+.inputBox:focus, .editInput:focus {
     outline: 2px solid var(--space);
 
 }
@@ -104,7 +106,44 @@
 }
 
 .successMessage {
-    color: green; 
-    background-color: black;
+    color: red; 
     z-index: 10000;
+    font-weight: bold;
+}
+
+.deleteMessage {
+    color: red; 
+    z-index: 10000;
+    font-weight: bold;
+}
+
+.deleteConfirmation {
+    background-color: var(--cream);
+    height: fit-content;
+    width: auto;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 20px;
+    color: red;
+    font-weight: bold;
+}
+
+.deleteButton {
+    background-color: var(--water);
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bolder;
+    background-color: var(--water);
+    color: var(--cream);
+    border: 1px solid var(--violet);
+    margin-right: 10px;
+}
+
+.deleteButton:hover {
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water);
 }
