@@ -23,7 +23,7 @@ const CartModal = ({ onClose }) => {
         setTimeout(() => {
             alert('Thank you for shopping with Fur Baby Boutique!');
             window.location.href = '/'; 
-        }, 3000);
+        }, 6000);
     };
 
 

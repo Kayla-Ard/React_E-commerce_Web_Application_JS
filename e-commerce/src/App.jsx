@@ -13,6 +13,7 @@ import OrderForm from './components/Orders/OrderForm';
 import OrderDetails from './components/Orders/OrderDetails';
 import CartModal from './components/Layout/CartModal';
 import AdminProducts from './components/Products/AdminProducts';
+import Modal from 'react-modal'
 
 const App = () => {
     return (

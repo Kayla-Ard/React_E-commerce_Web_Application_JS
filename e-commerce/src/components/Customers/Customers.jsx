@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import styles from './Customers.module.css';
 import AddCustomer from './AddCustomer';
 import { fetchCustomers, fetchCustomerById, saveCustomer, deleteCustomer, updateCustomer } from '../../../API/API';
-import Modal from './CustomerModal';
+import CustomerConfirmationModal from './CustomerConfirmationModal';
+import { useHistory } from 'react-router-dom';
 
 const Customers = () => {
+    const history = useHistory();
     const [customers, setCustomers] = useState([]);
     const [customerId, setCustomerId] = useState('');
     const [selectedCustomer, setSelectedCustomer] = useState(null);
-
     const [showModal, setShowModal] = useState(false);
-    const [modalMessage, setModalMessage] = useState('');
     const [modalCustomerDetails, setModalCustomerDetails] = useState(null);
-    const [isDeleteConfirmation, setIsDeleteConfirmation] = useState(false);
-
     const [isEditing, setIsEditing] = useState(false);
     const [editCustomer, setEditCustomer] = useState({
         name: '',
@@ -21,9 +19,22 @@ const Customers = () => {
         phone: ''
     });
 
+    const [errorMessage, setErrorMessage] = useState('');
+    const [updateMessage, setUpdateMessage] = useState('');
+
     useEffect(() => {
         loadCustomers();
     }, []);
+
+    useEffect(() => {
+        if (isEditing && selectedCustomer) {
+            setEditCustomer({
+                name: selectedCustomer.name,
+                email: selectedCustomer.email,
+                phone: selectedCustomer.phone
+            });
+        }
+    }, [isEditing, selectedCustomer]);
 
     const loadCustomers = async () => {
         try {
@@ -36,6 +47,7 @@ const Customers = () => {
 
     const handleInputChange = (e) => {
         setCustomerId(e.target.value);
+        setErrorMessage(''); 
     };
 
     const handleEditInputChange = (e) => {
@@ -49,84 +61,101 @@ const Customers = () => {
     const handleSaveCustomer = async (customer) => {
         try {
             const savedCustomer = await saveCustomer(customer);
-            
-            if (savedCustomer) {
+    
+            if (savedCustomer && savedCustomer.customer_id) {
                 setCustomers([...customers, savedCustomer]);
-                setModalMessage(`Customer added successfully!`);
-                setModalCustomerDetails(null);
+                setModalCustomerDetails({
+                    customer_id: savedCustomer.customer_id,
+                    name: savedCustomer.name,
+                    email: savedCustomer.email,
+                    phone: savedCustomer.phone
+                });
+    
                 setShowModal(true);
-
+    
                 setTimeout(() => {
                     setShowModal(false);
                     closeModal();
-                }, 3000);
-
+                }, 6000);
+    
             } else {
                 console.error('Error saving customer: Saved customer data is undefined or incomplete.');
             }
         } catch (error) {
             console.error('Error saving customer:', error);
-            setModalMessage('Error: Failed to save customer. Please try again.');
-            setShowModal(true);
         }
     };
-    
 
+    
     const handleSearch = async () => {
         try {
             const customer = await fetchCustomerById(customerId);
             if (customer) {
                 setSelectedCustomer(customer);
+                setEditCustomer({ 
+                    name: customer.name,
+                    email: customer.email,
+                    phone: customer.phone
+                });
+                setErrorMessage('');
             } else {
                 console.error('No customer found with ID:', customerId);
                 setSelectedCustomer(null);
+                setErrorMessage('Invalid customer ID. Please enter a valid ID.');
             }
         } catch (error) {
             console.error('Error fetching customer:', error);
             setSelectedCustomer(null);
+            setErrorMessage('Invalid customer ID. Please enter a valid ID.');
         }
     };
 
     const handleUpdate = async (e) => {
-        e.preventDefault(); 
-
+        e.preventDefault();
+    
         try {
             if (!selectedCustomer) {
                 console.error('No customer selected for update.');
                 return;
             }
-
+    
             const updatedCustomer = {
                 ...selectedCustomer,
                 name: editCustomer.name,
                 email: editCustomer.email,
                 phone: editCustomer.phone
             };
-
+    
             const result = await updateCustomer(updatedCustomer.customer_id, updatedCustomer);
+    
+            if (result) {
+                setCustomers(customers.map((customer) => {
+                    if (customer.customer_id === updatedCustomer.customer_id) {
+                        return updatedCustomer;
+                    }
+                    return customer;
+                }));
+    
+                setUpdateMessage('Update Successful!');
+                setIsEditing(false);
 
-            setCustomers(customers.map((customer) => {
-                if (customer.customer_id === updatedCustomer.customer_id) {
-                    return updatedCustomer;
-                }
-                return customer;
-            }));
-
-            setModalMessage('Customer Updated Successfully!');
-            setModalCustomerDetails(updatedCustomer);
-            setShowModal(true);
-
-            setIsEditing(false); 
-
-            setTimeout(() => {
-                setShowModal(false);
-                closeModal();
-            }, 3000);
-
+                setSelectedCustomer(updatedCustomer);
+    
+                setTimeout(() => {
+                    setUpdateMessage('');
+                    closeModal();
+                    
+                    // history.push(`/customers/${updatedCustomer.customer_id}`);
+                }, 5000);
+            } else {
+                console.error('Update failed.');
+            }
         } catch (error) {
             console.error('Error updating customer:', error);
         }
     };
+    
+    
 
     const handleDeleteConfirmation = () => {
         setIsDeleteConfirmation(true);
@@ -148,12 +177,10 @@ const Customers = () => {
             setModalCustomerDetails(selectedCustomer);
             setShowModal(true);
 
-            setIsDeleteConfirmation(false);
-
             setTimeout(() => {
                 setShowModal(false);
                 closeModal();
-            }, 3000); 
+            }, 6000); 
         } catch (error) {
             console.error('Error deleting customer:', error);
         }
@@ -163,30 +190,40 @@ const Customers = () => {
     const closeModal = () => {
         setShowModal(false);
         setIsDeleteConfirmation(false);
-        setCustomerId(''); 
+        setCustomerId('');
         setSelectedCustomer(null);
-    };
+    }
 
     return (
         <div className={styles.container}>
             <h1 className={styles.heading}>Customers</h1>
+            {updateMessage && <p className={styles.updateMessage}>{updateMessage}</p>} {/* Display update message */}
             <div className={styles.section}>
-                <h2>Add Customer</h2>
+                <h2>Sign Up Today & Become A Fur Baby Member!</h2>
                 <AddCustomer onSave={handleSaveCustomer} />
             </div>
             <div className={styles.section}>
+            <h2 className={styles.header}>Customer Details</h2>
                 <div className={styles.searchContainer}>
                     <input
                         type="text"
                         placeholder="Enter Customer ID"
+                        className={styles.inputBox}
                         value={customerId}
                         onChange={handleInputChange}
                     />
                     <button className={styles.searchButton} onClick={handleSearch}>Search</button>
                 </div>
+                {updateMessage && (
+                    <p className={`${styles.successMessage} ${styles.message}`}>{updateMessage}</p>
+                )}
+
+                {errorMessage && (
+                    <p className={styles.errorMessage}>{errorMessage}</p>
+                )}
                 {selectedCustomer && (
                     <div className={styles.customerDetails}>
-                        <h3>Customer Details</h3>
+                        
                         {!isEditing ? (
                             <>
                                 <p>Name: {selectedCustomer.name}</p>
@@ -194,9 +231,9 @@ const Customers = () => {
                                 <p>Phone: {selectedCustomer.phone}</p>
                                 <p>Customer ID: {selectedCustomer.customer_id}</p>
                                 <div className={styles.actions}>
-                                    <button onClick={() => setIsEditing(true)}>Update Details</button>
-                                    <button onClick={handleDeleteConfirmation}>Delete Customer</button>
-                                    <button onClick={() => setSelectedCustomer(null)}>Close Details</button>
+                                    <button className={styles.button} onClick={() => setIsEditing(true)}>Update Details</button>
+                                    <button className={styles.button} onClick={handleDeleteConfirmation}>Delete Customer</button>
+                                    <button className={styles.button} onClick={() => setSelectedCustomer(null)}>Close Details</button>
                                 </div>
                             </>
                         ) : (
@@ -230,11 +267,10 @@ const Customers = () => {
                 )}
             </div>
             {showModal && (
-                <Modal
-                    message={modalMessage}
-                    customerDetails={modalCustomerDetails}
-                    closeModal={closeModal}
-                    onConfirm={isDeleteConfirmation ? handleDelete : null}
+                <CustomerConfirmationModal
+                    isOpen={showModal}
+                    onRequestClose={closeModal}
+                    customer={modalCustomerDetails}
                 />
             )}
         </div>

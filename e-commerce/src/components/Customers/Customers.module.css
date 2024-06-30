@@ -7,18 +7,104 @@
 }
 
 .section {
-    margin-top: 20px;
     background-color: var(--cream); 
-    padding: 20px;
     border-radius: 8px;
-    padding: 20px;
-    margin: 10px;
+    padding: 10px;
+    margin: 20px;
+    margin-bottom: 50px;
 }
 
 .section h2 {
-    color: var(--space);
+    color: var(--water);
+    font-size: 28px;
+    text-align: center;
 }
 
 .heading {
     color: var(--cream);
+    font-size: 35px;
+}
+
+.header {
+    color: var(--water);
+    font-size: 28px;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.button {
+    background-color: var(--water);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bolder;
+    background-color: var(--water);
+    color: var(--cream);
+    border: 1px solid var(--violet);
+}
+
+.button:hover {
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water);
+}
+
+.customerDetails {
+    font-size: 18px;
+    color: var(--space);
+}
+
+.inputBox {
+    font-size: 18px;
+    color: var(--water);
+    background-color: var(--violet);
+    border: 1px solid var(--space);
+    border-radius: 2px;
+}
+
+.inputBox::placeholder {
+    color: var(--water);
+}
+
+.inputBox:focus {
+    outline: 2px solid var(--space);
+
+}
+
+.searchButton {
+    background-color: var(--water);
+    padding: 5px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bolder;
+    background-color: var(--water);
+    color: var(--cream);
+    border: 1px solid var(--violet);
+    margin-left: 5px;
+}
+
+.searchButton:hover {
+    background-color: var(--violet);
+    color: var(--water);
+    font-weight: bold;
+    border: 1px solid var(--water);
+}
+
+.errorMessage {
+    color: red;
+    margin-top: 5px;
+    z-index: 10000;
+}
+
+.successMessage {
+    color: green; 
+    background-color: black;
+    z-index: 10000;
 }
